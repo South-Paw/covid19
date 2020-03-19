@@ -1,0 +1,57 @@
+{
+  "name": "@south-paw/covid-19",
+  "version": "0.1.0",
+  "description": "COVID-19 data visualisations and dashboard",
+  "keywords": [],
+  "homepage": "https://github.com/South-Paw/covid-19",
+  "bugs": "https://github.com/South-Paw/covid-19/issues",
+  "license": "MIT",
+  "author": {
+    "name": "Alex Gabites",
+    "email": "hello@southpaw.co.nz",
+    "url": "http://southpaw.co.nz/"
+  },
+  "files": [],
+  "main": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/South-Paw/covid-19.git"
+  },
+  "scripts": {
+    "build": "gatsby build",
+    "clean": "rimraf ./.cache ./public",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
+    "serve": "gatsby serve",
+    "start": "gatsby develop",
+    "tsc": "tsc"
+  },
+  "dependencies": {
+    "gatsby": "^2.19.49",
+    "gatsby-plugin-google-analytics": "^2.1.38",
+    "gatsby-plugin-manifest": "^2.2.48",
+    "gatsby-plugin-react-helmet": "^3.1.24",
+    "gatsby-plugin-sitemap": "^2.2.30",
+    "gatsby-plugin-styled-components": "^3.1.21",
+    "gatsby-plugin-typescript": "^2.2.5",
+    "polished": "^3.4.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-helmet": "^5.2.1",
+    "styled-components": "^5.0.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.24.0",
+    "@typescript-eslint/parser": "^2.24.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-typescript": "^7.2.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "prettier": "^1.19.1",
+    "typescript": "^3.8.3"
+  },
+  "private": true
+}
