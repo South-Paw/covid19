@@ -8,4 +8,4 @@ Suggestions and PRs for new features are welcome. If you find any issues, please
 
 ## License
 
-Copyright © 2020 Alex Gabites
+MIT, see the [LICENSE](./LICENSE) file.
