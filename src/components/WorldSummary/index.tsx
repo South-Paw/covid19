@@ -1,10 +1,9 @@
 import { readableColor } from 'polished';
 import * as React from 'react';
 import styled from 'styled-components';
-import { getSummaryWorldWide, SummaryWorldWide } from '../../api';
+import { useGetDailyCases, useGetSummaryWorldWide } from '../../api';
 import { ErrorHandler } from '../ui/ErrorHandler';
 import { Loading } from '../ui/Loading';
-import { useGetDailyCases } from '../WorldDailyCases';
 
 const StyledStat = styled('div')`
   margin: 0 12px;
@@ -55,10 +54,6 @@ const RenderDelta: React.FC<{ value: number }> = ({ value }) => {
     indicator = '+';
   }
 
-  if (value < 0) {
-    indicator = '-';
-  }
-
   if (value === 0) {
     return <>No change today</>;
   }
@@ -66,7 +61,7 @@ const RenderDelta: React.FC<{ value: number }> = ({ value }) => {
   return (
     <>
       {indicator}
-      {value} today
+      {value.toLocaleString()} today
     </>
   );
 };
@@ -75,27 +70,6 @@ const Row = styled('div')`
   display: flex;
   flex-flow: nowrap row;
 `;
-
-const useGetSummaryWorldWide = () => {
-  const [called, setIsCalled] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [error, setError] = React.useState<any>(undefined);
-  const [data, setData] = React.useState<SummaryWorldWide | undefined>(undefined);
-
-  React.useEffect(() => {
-    if (!called) {
-      getSummaryWorldWide()
-        .then(summary => setData(summary))
-        .catch(err => setError(err))
-        .finally(() => {
-          setIsCalled(true);
-          setIsLoading(false);
-        });
-    }
-  }, [called]);
-
-  return { isLoading, error, data };
-};
 
 const useWorldSummary = () => {
   const { isLoading: isSummaryLoading, error: summaryError, data: summaryData } = useGetSummaryWorldWide();
@@ -130,19 +104,19 @@ export const WorldSummary = () => {
             color="#1E1C1D"
             label="Confirmed"
             number={data.summary.confirmed.toLocaleString()}
-            other={<RenderDelta value={data.today.confirmedDelta} />}
+            other={<RenderDelta value={data.today.confirmed.delta} />}
           />
           <Stat
             color="#F4B81F"
             label="Active"
             number={data.summary.active.toLocaleString()}
-            other={<RenderDelta value={data.today.activeDelta} />}
+            other={<RenderDelta value={data.today.active.delta} />}
           />
           <Stat
             color="#0F9D58"
             label="Recovered"
             number={data.summary.recovered.toLocaleString()}
-            other={<RenderDelta value={data.today.recoveredDelta} />}
+            other={<>{data.summary.recoveryRate}% recovery rate</>}
           />
           <Stat
             color="#DA2C38"

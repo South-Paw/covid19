@@ -1,7 +1,7 @@
 import Chartjs from 'chart.js';
 import { rgba } from 'polished';
 import * as React from 'react';
-import { DailyCase } from '../../api';
+import { DailyCase } from '../../api/mathdroid';
 
 export interface DailyCasesChartProps {
   data: DailyCase[];
@@ -24,31 +24,23 @@ export const DailyCasesChart: React.FC<DailyCasesChartProps> = ({ data }) => {
       borderColor: '#1E1C1D',
     };
 
-    const activeDataset: Chartjs.ChartDataSets = {
-      label: 'Active',
+    const deathsDataset: Chartjs.ChartDataSets = {
+      label: 'Deaths',
       data: [],
-      backgroundColor: rgba('#F4B81F', 0.2),
-      borderColor: '#F4B81F',
+      backgroundColor: rgba('#DA2C38', 0.2),
+      borderColor: '#DA2C38',
     };
 
-    const recoveredDataset: Chartjs.ChartDataSets = {
-      label: 'Recovered',
-      data: [],
-      backgroundColor: rgba('#0F9D58', 0.2),
-      borderColor: '#0F9D58',
-    };
-
-    data.forEach(({ reportDate, confirmed, active, recovered }) => {
+    data.forEach(({ reportDate, confirmed, deaths }) => {
       labels.push(reportDate);
-      confirmedDataset.data!.push(confirmed);
-      activeDataset.data!.push(active);
-      recoveredDataset.data!.push(recovered);
+      confirmedDataset.data!.push(confirmed.total);
+      deathsDataset.data!.push(deaths.total);
     });
 
     // eslint-disable-next-line no-new
     new Chartjs(chartCanvas.current, {
       type: 'line',
-      data: { labels, datasets: [confirmedDataset, activeDataset, recoveredDataset] },
+      data: { labels, datasets: [confirmedDataset, deathsDataset] },
       options: {
         legend: { position: 'bottom' },
         scales: { yAxes: [{ ticks: { beginAtZero: true } }] },
